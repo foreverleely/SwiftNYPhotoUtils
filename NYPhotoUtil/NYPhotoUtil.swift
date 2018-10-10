@@ -16,8 +16,7 @@ struct NYPhotoUtil {
         var assets = [PHAsset]()
         let option = PHFetchOptions()
         let descriptor: NSSortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
-//        var sortedResults: NSArray = results.sortedArrayUsingDescriptors([descriptor])
-        option.sortDescriptors = [descriptor]//sortedResults
+        option.sortDescriptors = [descriptor]
         
         let result = PHAsset.fetchAssets(in: assetCollection, options: option)
         result.enumerateObjects { (asset, idx, stop) in
