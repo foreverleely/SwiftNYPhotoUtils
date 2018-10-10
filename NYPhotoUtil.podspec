@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "NYPhotoUtil"
-  spec.version      = "1.0.2"
+  spec.version      = "1.0.3"
   spec.summary      = "the apply of Photos for swift"
 
   # This description is used to generate tags and improve search results.
