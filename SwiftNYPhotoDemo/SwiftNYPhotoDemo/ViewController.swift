@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     // MARK: - Photos
     
     func photosManager() {
-        // 注意配置 info.plist 权限
+        // mind the info.plist authority
         PHPhotoLibrary.requestAuthorization { (status) in
             DispatchQueue.main.async {
                 switch status {
@@ -47,13 +47,13 @@ class ViewController: UIViewController {
     }
     
     func loadAlbumData() {
-        // 获取智能相册
+        // smartAlbum
         let smartAlbums = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.albumRegular, options: nil)
         smartAlbums.enumerateObjects { (collection, idx, stop) in
-            // 过滤掉已隐藏、视频、最近删除
+            // filter the hiddens, videos, and removes
             if collection.assetCollectionSubtype != PHAssetCollectionSubtype.smartAlbumAllHidden && collection.assetCollectionSubtype != PHAssetCollectionSubtype.smartAlbumVideos && collection.assetCollectionSubtype != PHAssetCollectionSubtype.init(rawValue: 1000000201) {
                 let assets = NYPhotoUtil.getAllAssetWithAssetCollection(collection, false)
-                // 遍历 assets 使用 NYPhotoUtil.getImageWithAsset 方法即可获取相应照片
+                // forin the assets, then using "NYPhotoUtil.getImageWithAsset", you can also get photos
                 if !assets.isEmpty {
                     let model = PhotoModel()
                     model.name = collection.localizedTitle ?? ""
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-        // 获取用户创建相册
+        // userAlbum
         let userAlbums = PHAssetCollection .fetchAssetCollections(with: PHAssetCollectionType.album, subtype: PHAssetCollectionSubtype.smartAlbumUserLibrary, options: nil)
         userAlbums.enumerateObjects { (collection, idx, stop) in
             let assets = NYPhotoUtil.getAllAssetWithAssetCollection(collection, false)
@@ -84,7 +84,7 @@ class ViewController: UIViewController {
     }
     
     func getPhotos(_ model: PhotoModel) {
-        // 对应相册分类下的照片
+        // get photos in specific album
         var i = 0
         for asset in model.assets {
             let width = CGFloat(50.0)
@@ -103,13 +103,13 @@ class ViewController: UIViewController {
 }
 
 class PhotoModel: NSObject {
-    // 相册名
+    // album name
     var name = ""
-    // 照片数
+    // photo count
     var assetCount = 0
-    // 照片集里第一个照片（封面照片）
+    // cover asset
     var coverAsset = PHAsset()
-    // 照片集
+    // asset collection
     var assets = [PHAsset]()
     
     override init() {
